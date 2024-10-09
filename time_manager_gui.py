@@ -248,11 +248,15 @@ class TimeManagerGUI(QMainWindow):
         task = self.manager.tasks[row]
         self.manager.stop_task(row)
         
+        # 获取当前时间作为完成时间
+        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
         # 保存完成的任务到本地文件
         completed_task = {
             "任务名称": task.name,
             "预期时间": task.expected_time,
-            "实际时间": round(task.actual_time, 2)  # 保留两位小数
+            "实际时间": round(task.actual_time, 2),  # 保留两位小数
+            "完成时间": completion_time  # 添加完成时间
         }
         try:
             with open("已完成任务.json", "r", encoding="utf-8") as f:

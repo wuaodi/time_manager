@@ -14,7 +14,7 @@ class Task:
 
     def stop(self):
         if self.start_time:
-            self.actual_time += (datetime.now() - self.start_time).total_seconds() / 3600  # 转换为小时
+            self.actual_time += (datetime.now() - self.start_time).total_seconds() / 3600
             self.start_time = None
 
     def to_dict(self):
@@ -87,7 +87,12 @@ class TimeManager:
                 data = f.read()
                 if data:
                     tasks_data = json.loads(data)
-                    self.tasks = [Task.from_dict(task_data) for task_data in tasks_data]
+                    self.tasks = []
+                    for task_data in tasks_data:
+                        # 检查是否存在 '完成时间' 字段，如果不存在则添加
+                        if '完成时间' not in task_data:
+                            task_data['完成时间'] = None
+                        self.tasks.append(Task.from_dict(task_data))
                 else:
                     self.tasks = []
         except FileNotFoundError:
