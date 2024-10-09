@@ -7,6 +7,3 @@
 依赖： ```pip install PyQt5``` 
 
 [python 3.x pyqt 5.15]
-
-待办事项：
-1. 在保存任务时增加时间戳
